@@ -36,26 +36,26 @@ env:
 jobs:
 # TODO: this build is disabled to save Github Actions resources (https://github.com/ggml-org/llama.cpp/pull/23705)
 #       in order to enable it again, we have to provision dedicated runners  to run it
-#  openEuler-latest-cann:
-#    defaults:
-#      run:
-#        shell: bash -el {0}
-#    strategy:
-#      matrix:
-#        arch: [x86, aarch64]
-#        chip_type: ['910b', '310p']
-#        build: ['Release']
-#        use_acl_graph: ['on', 'off']
-#        exclude:
-#          # 310P does not support USE_ACL_GRAPH=on
-#          - chip_type: '310p'
-#            use_acl_graph: 'on'
-#    runs-on: ${{ matrix.arch == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v6
-#        with:
-#          fetch-depth: 0
+  openEuler-latest-cann:
+    defaults:
+      run:
+        shell: bash -el {0}
+    strategy:
+      matrix:
+        arch: [x86, aarch64]
+        chip_type: ['910b', '310p']
+        build: ['Release']
+        use_acl_graph: ['on', 'off']
+        exclude:
+          # 310P does not support USE_ACL_GRAPH=on
+          - chip_type: '310p'
+            use_acl_graph: 'on'
+    runs-on: ${{ matrix.arch == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 #
 #      - name: Free up disk space
 #        uses: ggml-org/free-disk-space@v1.3.1
