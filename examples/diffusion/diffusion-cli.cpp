@@ -3,6 +3,7 @@
 #include "common.h"
 #include "diffusion.h"
 #include "ggml-backend.h"
+#include "moe-profiler.h"
 #include "llama.h"
 #include "log.h"
 
@@ -229,6 +230,9 @@ int main(int argc, char ** argv) {
     ctx_params.no_perf              = params.no_perf;
     ctx_params.type_k               = params.cache_type_k;
     ctx_params.type_v               = params.cache_type_v;
+
+    // MOE_PROFILE=1 -> log per-layer expert selections to CSV (see moe-profiler.h)
+    moe_profiler_init(ctx_params);
 
     llama_context * ctx = llama_init_from_model(model, ctx_params);
     if (!ctx) {
